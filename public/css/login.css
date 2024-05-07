@@ -1,0 +1,48 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin: 0 0 360px 0;
+    box-shadow: 0 0 20px orange;
+}
+
+.cart {
+    background-color: transparent;
+}
+
+body {
+    background: url(../imgs/sneakers.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+form {
+    background: rgb(7, 7, 7);
+    border-radius: 10px;
+    box-shadow: 0 0 20px orange;
+    padding: 2rem;
+    width: 500px;
+}
+
+h1, strong, span {
+    color: orange;
+}
+
+span {
+    margin: 10px;
+}
+
+button {
+    margin:  10px 0px;
+}
