@@ -41,7 +41,7 @@
                         <img src="./imgs/svg-trash.svg" alt="trash">
                     </button>
                     <button ng-click="addToCart(product.id)">
-                        <img src="./imgs/svg-cart.svg" alt="cart" class="iconCart">
+                        <img ng-if="!product.inCart" src="./imgs/svg-cart.svg" alt="cart" class="iconCart">
                     </button>
                 </div>
             </div>

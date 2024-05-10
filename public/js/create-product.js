@@ -17,7 +17,7 @@ app.controller('createProductController', function ($scope, $http, AdminService,
     $scope.createProduct = () => {
         $http.post('http://localhost:3131/api/products', {
             name: $scope.name,
-            price: Number($scope.price.replace(/\D/g, '')) / 100,
+            price: Number($scope.price),
             description: $scope.description,
             imageUrl: $scope.imageUrl,
         }, {

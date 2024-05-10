@@ -18,7 +18,6 @@ export function authenticationMiddleware(req, res, next) {
         const decoded = jwt.decode(token)
 
         req.user = decoded;
-        console.log('req.user: ', req.user);
 
         next()
     } catch (e) {

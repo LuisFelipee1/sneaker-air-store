@@ -10,6 +10,7 @@ app.controller('cartController', function ($scope, $http, SessionService, AdminS
                 authorization: `Bearer ${SessionService.getToken()}`
             }
         }).then((response) => {
+            console.log('cart', response.data);
             if(response.data) {
                 $scope.items = response.data.items;
                 $scope.total = $scope.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)

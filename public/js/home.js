@@ -10,7 +10,6 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
 
     $scope.getProducts = () => {
         $http.get('http://localhost:3131/api/products').then((response) => {
-            console.log(response);
             $scope.products = response.data
         })
     }
@@ -28,7 +27,6 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             }
         }).then((response) => {
             $scope.users = response.data;
-            console.log(response);
             $scope.users.map((user, index) => {
                 if (user.email === localStorage.getItem('email')) {
                     $scope.name = user.name;
@@ -77,7 +75,6 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             price: $scope.priceUpdated,
             imageUrl: $scope.imageUpdated
         }
-        console.log(productUpdated);
         $http.patch(`http://localhost:3131/api/products/${id}`, productUpdated, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -100,7 +97,6 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
                     $scope.products.splice(index, 1);
                 }
             })
-            console.log(response.data);
             $scope.getProducts();
         });
     }
@@ -127,8 +123,9 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             headers: {
                 Authorization: `Bearer ${SessionService.getToken()}`
             }
-        }).then((response)=>{
-            response.data = $scope.productCart
+        }).then((response) => {
+            $scope.productCart = response.data
+            console.log('productCart: ' + response.data);
             alert('Sneaker adicionado ao carrinho');
         })
     }
@@ -142,7 +139,6 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
         SessionService.verifyLogin(false)
         $scope.isAuthenticated = SessionService.isAuthenticated()
         $scope.isAdmin = AdminService.isAdmin();
-        console.log("isAuthenticated", $scope.isAuthenticated)
         $scope.$apply()
     })
     $scope.goToHome = () => {

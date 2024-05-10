@@ -23,14 +23,17 @@
             <td>Preço</td>
             <td>Ações</td>
         </tr>
-        <h3 ng-if="cart.length == 0">O seu carrinho esta vazio ☹️</h3>
-        <tr ng-repeat="prod in cart">
-            <td class="tds">{{prod.name}}</td>
-            <td class="tds"><img width="100px" src="{{prod.imageUrl}}" alt="tenis"></td>
-            <td class="tds">{{prod.description}}</td>
-            <td class="tds">R$ {{prod.price}},00</dt>
-            <td class="tds"><button class="remove" ng-click="removeFromCart(prod.id)"><img src="./imgs/icon-remove.png" alt=""></button></td>
+        <h3 ng-if="items.length == 0">O seu carrinho esta vazio ☹️</h3>
+        <tr ng-repeat="item in items">
+            <td class="tds">{{item.product.name}}</td>
+            <td class="tds"><img width="100px" src="{{item.product.imageUrl}}" alt="tenis"></td>
+            <td class="tds">{{item.product.description}}</td>
+            <td class="tds">R$ {{item.product.price}},00</dt>
+            <td class="tds"><button class="remove" ng-click="deleteCartItem(item.product.id)"><img src="./imgs/icon-remove.png" alt=""></button></td>
         </tr>
+        <div>
+            
+        </div>
     </table>
     <script src="./js/lib/jwt-decode.js"></script>
     <script src="./js/app.js"></script>

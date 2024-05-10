@@ -38,7 +38,7 @@ app.controller('registerController', function ($scope, $http) {
             }
         });
         $scope.userList = data;
-        console.log($scope.userList);
+        console.log(`usuários:${$scope.userList}`);
         $scope.$apply();
     }
     $scope.loadUser();
