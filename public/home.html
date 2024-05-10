@@ -25,7 +25,7 @@
         </div>
     </div>
     <h1 class="saudacao">Olá, {{ name }}!!</h1>
-    <div class="container">
+    <div class="cont">
         <h1 ng-if="products.length == 0">Não existe produtos cadastrados ☹️</h1>
         <div class="card" ng-repeat="product in products">
             <img src="{{product.imageUrl}}" alt="tenis">

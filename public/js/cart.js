@@ -15,7 +15,7 @@ app.controller('cartController', function ($scope, $http) {
             console.log($scope.cart);
         })
     }
-    $scope.goToCart();
+    //$scope.goToCart();
 
     $scope.removeFromCart = async (id) => {
         try {
@@ -26,10 +26,26 @@ app.controller('cartController', function ($scope, $http) {
                 }
             });
             $scope.cart = response.data;
+            $scope.goToCart();
+            $scope.getItems();
             alert('Item removido do carrinho com sucesso!');
         } catch (error) {
             console.error('Erro ao remover item do carrinho:', error);
             alert('Ocorreu um erro ao remover o item do carrinho. Por favor, tente novamente mais tarde.');
         }
     }
+
+    $scope.items = [];
+    
+    $scope.getItems = () => {
+        $http.get('http://localhost:3131/api/products')
+            .then(response => {
+                $scope.items = response.data;
+                console.log($scope.items);
+            })
+            .catch(error => {
+                console.error('Erro ao buscar itens:', error);
+            });
+    }
+    $scope.getItems();
 });

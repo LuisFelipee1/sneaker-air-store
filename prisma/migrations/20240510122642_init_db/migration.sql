@@ -20,20 +20,21 @@ CREATE TABLE "Product" (
 CREATE TABLE "Cart" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "userId" INTEGER NOT NULL,
-    "total" REAL NOT NULL,
-    "closed" BOOLEAN NOT NULL,
-    CONSTRAINT "Cart_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "total" REAL,
+    "closed" BOOLEAN,
+    "colsedAt" DATETIME,
+    CONSTRAINT "Cart_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "CartItem" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "cartId" INTEGER NOT NULL,
-    "productId" INTEGER NOT NULL,
+    "productId" INTEGER,
     "quantity" INTEGER NOT NULL,
     "price" REAL NOT NULL,
-    CONSTRAINT "CartItem_cartId_fkey" FOREIGN KEY ("cartId") REFERENCES "Cart" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "CartItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "CartItem_cartId_fkey" FOREIGN KEY ("cartId") REFERENCES "Cart" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "CartItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateIndex

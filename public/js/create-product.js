@@ -1,6 +1,6 @@
 //const app = angular.module('online-store-app', []);
 
-app.controller('createProductController', function ($scope, $http, AdminService) {
+app.controller('createProductController', function ($scope, $http, AdminService, SessionService) {
     $scope.products = [];
     $scope.administrador = false;
     $scope.name = '';
@@ -23,24 +23,22 @@ app.controller('createProductController', function ($scope, $http, AdminService)
     $scope.getProducts();
 
     $scope.createProduct = () => {
-        const token = localStorage.getItem('token');
-        const productData = {
+        $http.post('http://localhost:3333/api/products', {
             name: $scope.name,
+            price: Number($scope.price.replace(/\D/g, '')) / 100,
             description: $scope.description,
-            price: $scope.price,
-            imageUrl: $scope.imageUrl
-        };
-        $http.post('http://localhost:3131/api/products', productData, {
+            imageUrl: $scope.imageUrl,
+        }, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                Authorization: `Bearer ${SessionService.getToken()}`
             }
-        }).then((response) => {
-            console.log(response.data);
-            $scope.products.push(productData);
-            $scope.getProducts();
-            location.href = './home.html';
+        }).then(() => {
+            location.href = "/home.html";
         })
     }
 
+    SessionService.verifyLogin();
+    SessionService.createVerifyLoginInterval();
+    $scope.logout = SessionService.logout;
     AdminService.verifyAdmin();
 });

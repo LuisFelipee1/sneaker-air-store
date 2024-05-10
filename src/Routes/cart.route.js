@@ -5,10 +5,12 @@ import { authenticationMiddleware } from '../middlewares/authentication.js';
 export const cartRouter = Router();
 export const cartControll = new CartController();
 
-cartRouter.get('/', cartControll.getCart);
+cartRouter.get('/closed', cartControll.getCarts);
 
 cartRouter.post('/', authenticationMiddleware, cartControll.createCart);
 
-cartRouter.patch('/:id', authenticationMiddleware, cartControll.updateCart);
+cartRouter.get('/', cartControll.getCart);
 
-cartRouter.delete('/:id', authenticationMiddleware, cartControll.deleteCart);
+cartRouter.patch('/', authenticationMiddleware, cartControll.updateCart);
+
+cartRouter.delete('/:productId', authenticationMiddleware, cartControll.deleteCart);

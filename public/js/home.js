@@ -11,7 +11,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
     $scope.getProducts = () => {
         $http.get('http://localhost:3131/api/products').then((response) => {
             console.log(response);
-            $scope.products = response.data;
+            $scope.products = response.data
         })
     }
     $scope.getProducts();
@@ -84,6 +84,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             }
         }).then((response) => {
             $scope.getProducts();
+            alert('Sneaker atualizado com sucesso!');
         })
     }
 
@@ -114,6 +115,10 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             $scope.goToCart();
             alert('Sneaker adicionado ao carrinho com sucesso!');
         });
+    };
+
+    $scope.goToHome = () => {
+        location.href = './home.html';
     }
 
     SessionService.verifyLogin();

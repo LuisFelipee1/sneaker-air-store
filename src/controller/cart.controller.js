@@ -6,39 +6,48 @@ export class CartController {
         this.repository = new CartRepository();
     }
 
-    getCart = async (req, res) => {
-        const allProducts = await this.repository.getCart();
-        return res.json(allProducts);
+    getCarts = async (req, res) => {
+        const userId = req.user.userId;
+
+        const carts = await this.repository.getClosedCarts(userId)
+
+        return res.json(carts)
     }
 
-    // getProduct = async (req, res) => {
-    //     const id = Number(req.params.id);
-    //     const product = await this.repository.(id);
-    //     return res.json(product);
-    // }
+    getCart = async (req, res) => {
+        const userId = req.user.userId;
+        console.log('reqUser', req.user);
+
+        const product = await this.repository.getCart(userId)
+
+        return res.json(product)
+    }
 
     createCart = async (req, res) => {
-        const product = req.body;
+        const cart = req.body;
+        const userId = req.user.userId;
+        //console.log('reqUser', req.user);
 
-        const createdProduct = await this.repository.createCart(product);
+        const createdCart = await this.repository.createCart({ ...cart, userId })
 
-        return res.json(createdProduct);
+        return res.json(createdCart)
     }
 
     updateCart = async (req, res) => {
-        const id = Number(req.params.id);
-        const prod = req.body;
+        const product = req.body
+        const userId = req.user.userId;
 
-        const prodUpdated = await this.repository.updateCart({ id, ...prod });
+        const productUpdated = await this.repository.updateCart({ ...product, userId })
 
-        return res.json(prodUpdated);
+        return res.json(productUpdated)
     }
 
     deleteCart = async (req, res) => {
-        const id = Number(req.params.id);
-    
-        await this.repository.deleteCart(id);
+        const userId = req.user.userId;
+        const productId = Number(req.params.productId)
 
-        return res.json({ ok: true });
+        await this.repository.deleteCart({ productId, userId })
+
+        return res.json({ ok: true })
     }
 }

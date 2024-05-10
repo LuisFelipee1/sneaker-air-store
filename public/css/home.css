@@ -50,10 +50,7 @@
 }
 
 body {
-    height: 100vh;
-    background: url(../imgs/sneakers.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url(../imgs/sneakers.jpg) no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -66,7 +63,7 @@ body {
     color: black;
 }
 
-.container {
+.cont, .container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,4 +103,47 @@ body {
 
 .desc {
     margin: 0;
+}
+
+.product {
+    padding: 2rem;
+    backdrop-filter: blur(15px);
+    width: fit-content;
+    border-radius: 10px;
+    box-shadow: 0 0 10px white;
+}
+
+.container {
+    text-align: center;
+    align-self: center;
+    height: 100vh;
+}
+
+.tags {
+    margin: 5px;
+    color: orange;
+}
+
+.tags {
+    text-align: left;
+}
+
+.snkar{
+    position: absolute;
+    width: 120px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 20px white;
+}
+
+.divlogo {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    height: fit-content;
+}
+
+.back {
+    position: absolute;
+    margin: 20px;
 }
