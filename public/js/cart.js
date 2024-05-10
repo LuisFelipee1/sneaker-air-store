@@ -1,51 +1,81 @@
 //const app = angular.module('online-store-app', []);
 
-app.controller('cartController', function ($scope, $http) {
+app.controller('cartController', function ($scope, $http, SessionService, AdminService) {
 
-    $scope.cart = [];
+    $scope.items = []
 
-    $scope.goToCart = async () => {
-        const token = localStorage.getItem('token');
+    function getCart() {
         $http.get('http://localhost:3131/api/cart', {
             headers: {
-                'Authorization': `Bearer ${token}`
+                authorization: `Bearer ${SessionService.getToken()}`
             }
         }).then((response) => {
-            $scope.cart = response.data;
-            console.log($scope.cart);
+            if(response.data) {
+                $scope.items = response.data.items;
+                $scope.total = $scope.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+            }
         })
     }
-    //$scope.goToCart();
 
-    $scope.removeFromCart = async (id) => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await $http.delete(`http://localhost:3131/api/cart/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            $scope.cart = response.data;
-            $scope.goToCart();
-            $scope.getItems();
-            alert('Item removido do carrinho com sucesso!');
-        } catch (error) {
-            console.error('Erro ao remover item do carrinho:', error);
-            alert('Ocorreu um erro ao remover o item do carrinho. Por favor, tente novamente mais tarde.');
-        }
+    function updateCart(productId, quantity) {
+        $http.patch('http://localhost:3131/api/cart', {
+            productId,
+            quantity,
+        }, {
+            headers: {
+                authorization: `Bearer ${SessionService.getToken()}`
+            }
+        })
     }
 
-    $scope.items = [];
-    
-    $scope.getItems = () => {
-        $http.get('http://localhost:3131/api/products')
-            .then(response => {
-                $scope.items = response.data;
-                console.log($scope.items);
-            })
-            .catch(error => {
-                console.error('Erro ao buscar itens:', error);
-            });
+    $scope.deleteCartItem = (productId)=>{
+        $http.delete('http://localhost:3131/api/cart/' + productId, {
+            headers: {
+                authorization: `Bearer ${SessionService.getToken()}`
+            }
+        }).then(()=>{
+            getCart();
+        })
     }
-    $scope.getItems();
+
+    $scope.closeCart = ()=>{
+        $http.patch('http://localhost:3131/api/cart', {
+            closed: true
+        }, {
+            headers: {
+                authorization: `Bearer ${SessionService.getToken()}`
+            }
+        }).then(()=>{
+            location.href = 'purchases.html'
+        })
+    }
+
+    $scope.onQuantityChange = (id) => {
+        const item = $scope.items.find(item => item.id === id)
+
+        item.quantity = String(item.quantity).replace(/\D/g, '').trim()
+
+        item.quantity = Number(item.quantity || '0')
+
+        item.quantity = item.quantity < 1 ? 1 : item.quantity;
+
+        $scope.total = $scope.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+        updateCart(item.productId, item.quantity)
+    }
+
+    $scope.increase = (id) => {
+        const item = $scope.items.find(item => item.id === id)
+        item.quantity++
+        $scope.onQuantityChange(id)
+    }
+    $scope.decrease = (id) => {
+        const item = $scope.items.find(item => item.id === id)
+        item.quantity--
+        $scope.onQuantityChange(id)
+    }
+
+    $scope.logout = SessionService.logout
+    $scope.isAuthenticated = SessionService.isAuthenticated()
+    $scope.isAdmin = AdminService.isAdmin()
+    getCart()
 });

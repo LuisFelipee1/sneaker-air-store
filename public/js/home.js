@@ -105,18 +105,46 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
         });
     }
 
-    $scope.addToCart = (product) => {
-        $http.post('http://localhost:3131/api/cart', product, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        }).then((response) => {
-            console.log(response.data);
-            $scope.goToCart();
-            alert('Sneaker adicionado ao carrinho com sucesso!');
-        });
-    };
+    $scope.products = []
 
+    $scope.getProducts = () => {
+        $http.get('http://localhost:3131/api/products').then((response) => {
+            $scope.products = response.data;
+        })
+    }
+
+    $scope.productCart = []
+
+    $scope.addToCart = (productId) => {
+        if(!$scope.isAuthenticated) {
+            location.href = '/login.html'
+            return
+        }
+
+        $http.post('http://localhost:3131/api/cart', {
+            productId
+        }, {
+            headers: {
+                Authorization: `Bearer ${SessionService.getToken()}`
+            }
+        }).then((response)=>{
+            response.data = $scope.productCart
+            alert('Sneaker adicionado ao carrinho');
+        })
+    }
+
+    SessionService.verifyLogin(false)
+    $scope.logout = SessionService.logout
+    $scope.isAuthenticated = SessionService.isAuthenticated()
+    $scope.isAdmin = AdminService.isAdmin();
+    $scope.getProducts()
+    SessionService.createVerifyLoginInterval(()=>{
+        SessionService.verifyLogin(false)
+        $scope.isAuthenticated = SessionService.isAuthenticated()
+        $scope.isAdmin = AdminService.isAdmin();
+        console.log("isAuthenticated", $scope.isAuthenticated)
+        $scope.$apply()
+    })
     $scope.goToHome = () => {
         location.href = './home.html';
     }

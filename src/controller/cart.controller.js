@@ -16,7 +16,6 @@ export class CartController {
 
     getCart = async (req, res) => {
         const userId = req.user.userId;
-        console.log('reqUser', req.user);
 
         const product = await this.repository.getCart(userId)
 
@@ -25,8 +24,7 @@ export class CartController {
 
     createCart = async (req, res) => {
         const cart = req.body;
-        const userId = req.user.userId;
-        //console.log('reqUser', req.user);
+        const userId = req.user.userId;;
 
         const createdCart = await this.repository.createCart({ ...cart, userId })
 

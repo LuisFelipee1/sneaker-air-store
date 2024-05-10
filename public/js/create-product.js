@@ -1,29 +1,21 @@
 //const app = angular.module('online-store-app', []);
 
 app.controller('createProductController', function ($scope, $http, AdminService, SessionService) {
-    $scope.products = [];
-    $scope.administrador = false;
-    $scope.name = '';
-    $scope.description = '';
-    $scope.price = 0;
-    $scope.imageUrl = '';
+    $scope.name = "";
+    $scope.price = "R$ 0,00";
+    $scope.description = "";
+    $scope.imageUrl = "";
 
-
-    $scope.getProducts = async () => {
-        const token = localStorage.getItem('token');
-        $http.get('http://localhost:3131/api/products', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then((response) => {
-            $scope.products = response.data;
-            console.log($scope.products);
-        });
+    $scope.formatPrice = () => {
+        const price = Number($scope.price.replace(/\D/g, '')).toString()
+        const priceStr = price.padStart(3, '0')
+        const priceArr = priceStr.split('')
+        priceArr.splice(priceArr.length - 2, 0, ',')
+        $scope.price = 'R$ ' + priceArr.join('');
     }
-    $scope.getProducts();
 
     $scope.createProduct = () => {
-        $http.post('http://localhost:3333/api/products', {
+        $http.post('http://localhost:3131/api/products', {
             name: $scope.name,
             price: Number($scope.price.replace(/\D/g, '')) / 100,
             description: $scope.description,
@@ -40,5 +32,4 @@ app.controller('createProductController', function ($scope, $http, AdminService,
     SessionService.verifyLogin();
     SessionService.createVerifyLoginInterval();
     $scope.logout = SessionService.logout;
-    AdminService.verifyAdmin();
 });

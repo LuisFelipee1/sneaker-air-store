@@ -5,11 +5,11 @@ import { authenticationMiddleware } from '../middlewares/authentication.js';
 export const cartRouter = Router();
 export const cartControll = new CartController();
 
-cartRouter.get('/closed', cartControll.getCarts);
+cartRouter.get('/closed', authenticationMiddleware, cartControll.getCarts);
 
 cartRouter.post('/', authenticationMiddleware, cartControll.createCart);
 
-cartRouter.get('/', cartControll.getCart);
+cartRouter.get('/', authenticationMiddleware, cartControll.getCart);
 
 cartRouter.patch('/', authenticationMiddleware, cartControll.updateCart);
 
