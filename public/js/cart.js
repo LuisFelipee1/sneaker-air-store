@@ -47,7 +47,7 @@ app.controller('cartController', function ($scope, $http, SessionService, AdminS
                 authorization: `Bearer ${SessionService.getToken()}`
             }
         }).then(()=>{
-            location.href = 'purchases.html'
+            location.href = './purchases.html'
         })
     }
 
@@ -62,6 +62,10 @@ app.controller('cartController', function ($scope, $http, SessionService, AdminS
 
         $scope.total = $scope.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
         updateCart(item.productId, item.quantity)
+    }
+
+    $scope.goToHome = () => {
+        location.href = './home.html';
     }
 
     $scope.increase = (id) => {

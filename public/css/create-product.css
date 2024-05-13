@@ -1,0 +1,62 @@
+/* Estilos para o formulário de criação de produto */
+body {
+    background: url(../imgs/sneakers.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: fit-content;
+    backdrop-filter: blur(15px);
+}
+
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: orange;
+}
+
+.form-container h4 {
+    color: orange;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para a exibição da imagem */
+.image-container {
+    text-align: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.image-container h3 {
+    color: orange;
+}
+
+.image-container img {
+    align-items: center;
+    max-height: 200px;
+    margin: 10px;
+}

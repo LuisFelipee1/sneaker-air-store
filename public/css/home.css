@@ -57,9 +57,6 @@ body {
 .saudacao {
     text-align: center;
     background: linear-gradient(180deg, black, orange);
-    /* background-repeat: repeat;
-    background-clip: text;
-    background-position: center;*/
     color: black;
 }
 
@@ -76,13 +73,16 @@ body {
 }
 
 .card {
+    max-height: 400px;
+    width: fit-content;
+    max-width: 250px;
+
     border: 1px solid black;
     background-color: rgb(255, 255, 255);
     width: 300px;
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
-    max-height: 370px;
     height: fit-content;
 }
 

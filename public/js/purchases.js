@@ -1,0 +1,39 @@
+app.controller("purchaseControll", ($scope, $http, AdminService, SessionService) => {
+    $scope.carts = [];
+
+    $scope.getClosedCarts = () => {
+        $http
+            .get("http://localhost:3131/api/cart/closed", {
+                headers: {
+                    authorization: `Bearer ${SessionService.getToken()}`,
+                },
+            })
+            .then((response) => {
+                console.log('OLAA', response.data);
+                $scope.carts = response.data.map((cart) => {
+                    const date = new Date(cart.closedAt);
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0')
+                    const year = date.getFullYear()
+                    const hours = String(date.getHours()).padStart(2, '0')
+                    const minutes = String(date.getMinutes()).padStart(2, '0')
+
+                    return {
+                        ...cart,
+                        id: String(cart.id).padStart(3, '0'),
+                        closedAt: `${day}/${month}/${year} ${hours}:${minutes}`,
+                    }
+                });
+            });
+    };
+
+    $scope.goToHome = () => {
+        location.href = './home.html';
+    }
+
+    $scope.logout = SessionService.logout;
+    $scope.isAdmin = AdminService.isAdmin();
+    $scope.isAuthenticated = SessionService.isAuthenticated();
+    $scope.getClosedCarts();
+}
+);
