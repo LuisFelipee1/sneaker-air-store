@@ -37,7 +37,7 @@ model Cart {
   userId   Int
   total    Float?
   closed   Boolean?
-  colsedAt DateTime?
+  closedAt DateTime?
   items CartItem[]
 }
  

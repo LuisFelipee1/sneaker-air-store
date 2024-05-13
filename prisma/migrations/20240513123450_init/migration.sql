@@ -22,7 +22,7 @@ CREATE TABLE "Cart" (
     "userId" INTEGER NOT NULL,
     "total" REAL,
     "closed" BOOLEAN,
-    "colsedAt" DATETIME,
+    "closedAt" DATETIME,
     CONSTRAINT "Cart_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 

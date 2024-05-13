@@ -9,7 +9,6 @@ app.controller("purchaseControll", ($scope, $http, AdminService, SessionService)
                 },
             })
             .then((response) => {
-                console.log('OLAA', response.data);
                 $scope.carts = response.data.map((cart) => {
                     const date = new Date(cart.closedAt);
                     const day = String(date.getDate()).padStart(2, '0');
@@ -24,6 +23,7 @@ app.controller("purchaseControll", ($scope, $http, AdminService, SessionService)
                         closedAt: `${day}/${month}/${year} ${hours}:${minutes}`,
                     }
                 });
+                console.log('TODOS CARRINHOS: ', $scope.carts);
             });
     };
 

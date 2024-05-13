@@ -107,7 +107,7 @@ export class CartRepository {
     async updateCart({ userId, productId, quantity, closed }) {
         const cartExists = await this.getCart(userId);
         let cartItem = await this.prisma.cartItem.findFirst({
-          where: { cartId: cartExists.id, productId },
+            where: { cartId: cartExists.id, productId },
         });
     
         if (cartItem) {
@@ -144,11 +144,12 @@ export class CartRepository {
             where: { id: cartExists.id },
             data: {
               closed,
+              closedAt: closed ? new Date() : null,
               total: total,
             },
           });
         }
-    
+    // colsed
         const cart = await this.getCart(userId);
     
         return cart;

@@ -11,6 +11,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
     $scope.getProducts = () => {
         $http.get('http://localhost:3131/api/products').then((response) => {
             $scope.products = response.data
+            console.log($scope.products);
         })
     }
     $scope.getProducts();
