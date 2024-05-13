@@ -126,7 +126,6 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             }
         }).then((response) => {
             $scope.productCart = response.data
-            console.log('productCart: ' + response.data);
             alert('Sneaker adicionado ao carrinho');
         })
     }
