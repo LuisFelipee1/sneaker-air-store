@@ -24,7 +24,7 @@ export class CartController {
 
     createCart = async (req, res) => {
         const cart = req.body;
-        const userId = req.user.userId;;
+        const userId = req.user.userId;
 
         const createdCart = await this.repository.createCart({ ...cart, userId })
 
