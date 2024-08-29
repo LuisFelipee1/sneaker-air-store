@@ -17,7 +17,7 @@ app.controller('registerController', function ($scope, $http) {
         if ($scope.confirmationPassword !== $scope.userPassword) {
             $scope.confirmation = true;
         }
-        $http.post('http://localhost:1030/api/users', {
+        $http.post('http://localhost:3131/api/users', {
             name: $scope.userName,
             email: $scope.userEmail,
             password: $scope.userPassword,
@@ -32,7 +32,7 @@ app.controller('registerController', function ($scope, $http) {
     }
 
     $scope.loadUser = async () => {
-        const { data } = await $http.get('http://localhost:1030/api/users', {
+        const { data } = await $http.get('http://localhost:3131/api/users', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }

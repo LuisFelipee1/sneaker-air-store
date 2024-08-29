@@ -5,7 +5,7 @@ app.controller('cartController', function ($scope, $http, SessionService, AdminS
     $scope.items = []
 
     function getCart() {
-        $http.get('http://localhost:1030/api/cart', {
+        $http.get('http://localhost:3131/api/cart', {
             headers: {
                 authorization: `Bearer ${SessionService.getToken()}`
             }
@@ -19,7 +19,7 @@ app.controller('cartController', function ($scope, $http, SessionService, AdminS
     }
 
     function updateCart(productId, quantity) {
-        $http.patch('http://localhost:1030/api/cart', {
+        $http.patch('http://localhost:3131/api/cart', {
             productId,
             quantity,
         }, {
@@ -30,7 +30,7 @@ app.controller('cartController', function ($scope, $http, SessionService, AdminS
     }
 
     $scope.deleteCartItem = (productId)=>{
-        $http.delete('http://localhost:1030/api/cart/' + productId, {
+        $http.delete('http://localhost:3131/api/cart/' + productId, {
             headers: {
                 authorization: `Bearer ${SessionService.getToken()}`
             }
@@ -40,7 +40,7 @@ app.controller('cartController', function ($scope, $http, SessionService, AdminS
     }
 
     $scope.closeCart = ()=>{
-        $http.patch('http://localhost:1030/api/cart', {
+        $http.patch('http://localhost:3131/api/cart', {
             closed: true
         }, {
             headers: {
