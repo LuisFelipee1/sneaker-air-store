@@ -8,7 +8,7 @@ app.controller('loginController', function ($scope, $http) {
 
     $scope.handleSubmit = () => {
         $scope.loading = true;
-        $http.post('http://localhost:3131/api/session', {
+        $http.post('http://localhost:1030/api/session', {
             email: $scope.email,
             password: $scope.password,
         })

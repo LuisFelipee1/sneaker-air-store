@@ -9,7 +9,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
 
 
     $scope.getProducts = () => {
-        $http.get('http://localhost:3131/api/products').then((response) => {
+        $http.get('http://localhost:1030/api/products').then((response) => {
             $scope.products = response.data
             console.log($scope.products);
         })
@@ -22,7 +22,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
 
     $scope.getUser = async () => {
         const token = localStorage.getItem('token');
-        $http.get('http://localhost:3131/api/users', {
+        $http.get('http://localhost:1030/api/users', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -76,7 +76,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             price: $scope.priceUpdated,
             imageUrl: $scope.imageUpdated
         }
-        $http.patch(`http://localhost:3131/api/products/${id}`, productUpdated, {
+        $http.patch(`http://localhost:1030/api/products/${id}`, productUpdated, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -88,7 +88,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
 
     $scope.deleteProduct = async (id) => {
         const token = localStorage.getItem('token');
-        await $http.delete(`http://localhost:3131/api/products/${id}`, {
+        await $http.delete(`http://localhost:1030/api/products/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -105,7 +105,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
     $scope.products = []
 
     $scope.getProducts = () => {
-        $http.get('http://localhost:3131/api/products').then((response) => {
+        $http.get('http://localhost:1030/api/products').then((response) => {
             $scope.products = response.data;
         })
     }
@@ -118,7 +118,7 @@ app.controller('homeController', function ($scope, $http, AdminService, SessionS
             return
         }
 
-        $http.post('http://localhost:3131/api/cart', {
+        $http.post('http://localhost:1030/api/cart', {
             productId
         }, {
             headers: {

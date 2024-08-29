@@ -3,7 +3,7 @@ app.controller("purchaseControll", ($scope, $http, AdminService, SessionService)
 
     $scope.getClosedCarts = () => {
         $http
-            .get("http://localhost:3131/api/cart/closed", {
+            .get("http://localhost:1030/api/cart/closed", {
                 headers: {
                     authorization: `Bearer ${SessionService.getToken()}`,
                 },
