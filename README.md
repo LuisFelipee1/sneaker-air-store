@@ -1,4 +1,4 @@
-SNEAKER AIR
+<h1>SNEAKER AIR</h1>
 SNEAKER AIR é uma loja online de tênis desenvolvida com o objetivo de oferecer uma experiência diferenciada tanto para administradores quanto para consumidores. O projeto foi construído utilizando uma stack moderna, combinando JavaScript, Angular e Bootstrap no front-end, e Node.js, Express.js e Prisma no back-end.
 
 Funcionalidades do Projeto
